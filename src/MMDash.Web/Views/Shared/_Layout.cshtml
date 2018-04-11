@@ -1,0 +1,146 @@
+﻿@using Microsoft.Extensions.Configuration
+@using System.IO
+@{
+
+    var configBuilder = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.json");
+    var Configuration = configBuilder.Build();
+
+    string applicationName = "MMDVM Dashboard";
+    var versionNumber = Configuration["version"];
+}
+@inject SignInManager<ApplicationUser> SignInManager
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - MMDVM Dashboard</title>
+
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <link href="~/lib/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/lib/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="~/css/sb-admin-2.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/lib/morrisjs/morris.css" rel="stylesheet">
+
+    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>*@
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a asp-controller="Home" asp-action="Index" asp-route-area="" class="navbar-brand">@applicationName</a>
+        </div>
+        <!-- /.navbar-header -->
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                @await Html.PartialAsync("_LoginPartial")
+                @*<ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>*@
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+        <!-- /.navbar-top-links -->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    @*<li class="sidebar-search">
+            <div class="input-group custom-search-form">
+                <input type="text" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </li>*@
+                    <li>
+                        <a asp-controller="Home" asp-action="Index" asp-route-area=""><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Streams" asp-action="Index" asp-route-area=""><i class="fa fa-signal fa-fw"></i> Call Signs</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Tg" asp-action="Index" asp-route-area=""><i class="fa fa-users fa-fw"></i> Talk Groups</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Map" asp-action="Index" asp-route-area=""><i class="fa fa-map fa-fw"></i> Client Map</a>
+                    </li>
+                    <li>
+                        <a asp-controller="ReleaseNotes" asp-action="Index" asp-route-area=""><i class="fa fa-wrench fa-fw"></i> Release Notes</a>
+                    </li>
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+    {
+                <li>
+                    <a asp-controller="Home" asp-action="Admin"><i class="fa fa-cogs fa-fw"></i> Admin</a>
+                </li>
+}
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+    <div id="page-wrapper">
+        @RenderBody()
+        @*<div class="row">
+            <div class="col-lg">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Net Watch
+                    </div>
+                    <div class="panel-body" id="netwatch">
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+    <div class="version">
+        Version: @versionNumber
+    </div>
+
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <script src="~/lib/datatables.net/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables.net/dataTables.bootstrap.js"></script>
+    <script src="~/lib/datatables.net/dataTables.responsive.js"></script>
+    <script src="~/lib/knockout/knockout.js"></script>
+    <script src="~/lib/knockout-validation/knockout.validation.js"></script>
+    <script src="~/lib/moment/moment.js"></script>
+    <script src="~/lib/select2/js/select2.js"></script>
+    <script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/lib/metisMenu/metisMenu.min.js"></script>
+    <script src="~/lib/morrisjs/morris.min.js"></script>
+    <script src="~/lib/raphael/raphael.min.js"></script>
+    <script src="~/js/sb-admin-2.js"></script>
+    @*<script src="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.js"></script>*@
+    @*<script src="//cdn.datatables.net/responsive/1.0.1/js/dataTables.responsive.js"></script>*@
+    <script src="~/js/app.js" asp-append-version="true"></script>
+
+    <script>var baseUrl = '@Url.Content("~/")';</script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

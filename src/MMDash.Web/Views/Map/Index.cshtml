@@ -1,0 +1,18 @@
+﻿@using IntelliTect.Coalesce.TypeDefinition
+@{
+    ViewData["Title"] = "MMDVM Map";
+}
+<div class="content" style="margin: 100px; margin-top: 0px">
+    <h2>Map of MMDVM clients</h2>
+    <div id="map" style="min-height: 500px;"></div>
+    <p>
+        This map is based off of IP Address Geo-location and not all locations may be accurate. <a href="https://www.iplocation.net/geolocation-accuracy" target="_blank">More Info</a>
+    </p>
+</div>
+@section Scripts {
+    <script src="~/js/map.index.js" asp-append-version="true"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-wdUi7Pa5imm5JpEaEbD6dOIOSjd_diY"
+            async defer></script>
+    <script src="~/js/markerclusterer.js" defer></script>
+}

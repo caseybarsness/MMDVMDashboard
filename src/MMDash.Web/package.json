@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "name": "MMDash",
+  "private": true,
+  "devDependencies": {
+    "@types/bootstrap": "3.3.36",
+    "@types/bootstrap.v3.datetimepicker": "4.17.46",
+    "@types/datatables.net": "1.10.8",
+    "datatables.responsive.typings": "1.0.3",
+    "@types/jquery": "2.0.48",
+    "@types/knockout": "3.4.47",
+    "@types/knockout.validation": "0.0.36",
+    "@types/moment": "2.11.29",
+    "@types/select2": "4.0.41",
+    "@types/google-maps": "3.2.0",
+    "@aspnet/signalr-client": "1.0.0-alpha2-final",
+    "del": "3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-flatten": "^0.3.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-shell": "^0.5.2",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-typescript": "^3.1.6",
+    "gulp-util": "3.0.7",
+    "moment": "^2.20.1",
+    "typescript": "~2.3.2",
+    "google-maps": "3.2.1"
+  }
+}

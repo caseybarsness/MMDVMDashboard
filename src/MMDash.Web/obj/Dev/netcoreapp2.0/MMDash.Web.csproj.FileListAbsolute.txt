@@ -1,0 +1,13 @@
+C:\Users\cbarsness\source\repos\HamRadio\src\Ham.Web\bin\Dev\netcoreapp2.0\Ham.Web.deps.json
+C:\Users\cbarsness\source\repos\HamRadio\src\Ham.Web\bin\Dev\netcoreapp2.0\Ham.Web.runtimeconfig.json
+C:\Users\cbarsness\source\repos\HamRadio\src\Ham.Web\bin\Dev\netcoreapp2.0\Ham.Web.runtimeconfig.dev.json
+C:\Users\cbarsness\source\repos\HamRadio\src\Ham.Web\bin\Dev\netcoreapp2.0\Ham.Web.dll
+C:\Users\cbarsness\source\repos\HamRadio\src\Ham.Web\bin\Dev\netcoreapp2.0\Ham.Web.pdb
+C:\Users\cbarsness\source\repos\HamRadio\src\Ham.Web\bin\Dev\netcoreapp2.0\Ham.Data.dll
+C:\Users\cbarsness\source\repos\HamRadio\src\Ham.Web\bin\Dev\netcoreapp2.0\Ham.Data.pdb
+C:\Users\cbarsness\source\repos\HamRadio\src\Ham.Web\obj\Dev\netcoreapp2.0\Ham.Web.csprojResolveAssemblyReference.cache
+C:\Users\cbarsness\source\repos\HamRadio\src\Ham.Web\obj\Dev\netcoreapp2.0\Ham.Web.csproj.CoreCompileInputs.cache
+C:\Users\cbarsness\source\repos\HamRadio\src\Ham.Web\obj\Dev\netcoreapp2.0\Ham.Web.AssemblyInfoInputs.cache
+C:\Users\cbarsness\source\repos\HamRadio\src\Ham.Web\obj\Dev\netcoreapp2.0\Ham.Web.AssemblyInfo.cs
+C:\Users\cbarsness\source\repos\HamRadio\src\Ham.Web\obj\Dev\netcoreapp2.0\Ham.Web.dll
+C:\Users\cbarsness\source\repos\HamRadio\src\Ham.Web\obj\Dev\netcoreapp2.0\Ham.Web.pdb

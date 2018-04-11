@@ -1,0 +1,8 @@
+{
+  "webProject": {
+    "projectFile": "./src/MMDash.Web/MMDash.Web.csproj"
+  },
+  "dataProject": {
+    "projectFile": "./src/MMDash.Data/MMDash.Data.csproj"
+  }
+}

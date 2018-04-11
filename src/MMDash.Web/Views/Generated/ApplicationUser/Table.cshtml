@@ -1,0 +1,274 @@
+@using IntelliTect.Coalesce.Knockout.Helpers
+@{ ViewBag.Fluid = true; }
+
+<style>
+    td div a {
+        display: block;
+    }
+
+    th.sortable-header {
+        cursor: pointer;
+    }
+
+    th.sortable-header:hover {
+        background-color: #e6e6e6
+    }
+    .table-view-header{
+        padding: 10px 15px;
+    }
+</style>
+
+<div class="table-view obj-applicationUser">
+    <div class="table-view-header">
+        <div class="clearfix">
+            <h1 style="display: inline-block">
+                Application User List
+                    <span style="font-size: .5em; padding-left: 20px;"><a href="~/ApplicationUser/Docs">API Docs</a></span>
+            </h1>
+            <span class="label label-info" data-bind="fadeVisible: isLoading()">Loading...</span>
+        </div>
+
+        <div class="clearfix">
+            <div style="display: inline-block; font-size: 1.1em; margin-right: 10px;">
+                <i class="fa fa-arrow-circle-left" data-bind="enabled: previousPageEnabled() && !isLoading(), click: previousPage"></i>
+                Page
+                <input data-bind="value: page" style="width: 35px">
+                of
+                <span data-bind="text: pageCount"></span>
+                <i class="fa fa-arrow-circle-right" data-bind="enabled: nextPageEnabled() && !isLoading(), click: nextPage"></i>
+            </div>
+            <select data-bind="value:pageSize" class="form-control" style="width: 100px; display: inline-block">
+                <option value="1">1</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+            </select>
+
+            <input class="form-control pull-right" style="width: 250px; margin-left: 20px" data-bind="textInput: search" placeholder="Search" />
+
+            <div class="btn-group pull-right">
+                        <a href="~/ApplicationUser/CreateEdit?@(ViewBag.Query)" role="button" class="btn btn-sm btn-default "><i class="fa fa-plus"></i> Create</a>
+                    <button data-bind="click:load" class="btn btn-sm btn-default "><i class="fa fa-refresh"></i> Refresh</button>
+                    @if (ViewBag.Editable)
+                    {
+                    <a href="~/ApplicationUser/Table?@(ViewBag.Query)" role="button" class="btn btn-sm btn-default "><i class="fa fa-lock"></i> Make Read-only</a>
+                    }
+                        else
+                        {
+                        <a href="~/ApplicationUser/TableEdit?@ViewBag.Query" role="button" class="btn btn-sm btn-default "><i class="fa fa-pencil"></i> Make Editable</a>
+                        }
+                    <a href="#" role="button" class="btn btn-sm btn-default " data-bind="attr:{href: downloadAllCsvUrl}"><i class="fa fa-download"></i> CSV</a>
+                        <button role="button" class="btn btn-sm btn-default " data-bind="click: csvUploadUi"><i class="fa fa-upload"></i> CSV</button>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="card table-view-body">
+        <div class="card-body">
+                <table class="table @(ViewBag.Editable ? " editable" : "" )">
+            <thead>
+                <tr>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('Name')}">
+                                Name
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'Name', 'fa-caret-down': orderByDescending() == 'Name'}"></i>
+                            </th>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('UserName')}">
+                                User Name
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'UserName', 'fa-caret-down': orderByDescending() == 'UserName'}"></i>
+                            </th>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('NormalizedUserName')}">
+                                Normalized User Name
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'NormalizedUserName', 'fa-caret-down': orderByDescending() == 'NormalizedUserName'}"></i>
+                            </th>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('Email')}">
+                                Email
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'Email', 'fa-caret-down': orderByDescending() == 'Email'}"></i>
+                            </th>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('NormalizedEmail')}">
+                                Normalized Email
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'NormalizedEmail', 'fa-caret-down': orderByDescending() == 'NormalizedEmail'}"></i>
+                            </th>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('EmailConfirmed')}">
+                                Email Confirmed
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'EmailConfirmed', 'fa-caret-down': orderByDescending() == 'EmailConfirmed'}"></i>
+                            </th>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('PasswordHash')}">
+                                Password Hash
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'PasswordHash', 'fa-caret-down': orderByDescending() == 'PasswordHash'}"></i>
+                            </th>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('SecurityStamp')}">
+                                Security Stamp
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'SecurityStamp', 'fa-caret-down': orderByDescending() == 'SecurityStamp'}"></i>
+                            </th>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('ConcurrencyStamp')}">
+                                Concurrency Stamp
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'ConcurrencyStamp', 'fa-caret-down': orderByDescending() == 'ConcurrencyStamp'}"></i>
+                            </th>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('PhoneNumber')}">
+                                Phone Number
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'PhoneNumber', 'fa-caret-down': orderByDescending() == 'PhoneNumber'}"></i>
+                            </th>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('PhoneNumberConfirmed')}">
+                                Phone Number Confirmed
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'PhoneNumberConfirmed', 'fa-caret-down': orderByDescending() == 'PhoneNumberConfirmed'}"></i>
+                            </th>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('TwoFactorEnabled')}">
+                                Two Factor Enabled
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'TwoFactorEnabled', 'fa-caret-down': orderByDescending() == 'TwoFactorEnabled'}"></i>
+                            </th>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('LockoutEnd')}">
+                                Lockout End
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'LockoutEnd', 'fa-caret-down': orderByDescending() == 'LockoutEnd'}"></i>
+                            </th>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('LockoutEnabled')}">
+                                Lockout Enabled
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'LockoutEnabled', 'fa-caret-down': orderByDescending() == 'LockoutEnabled'}"></i>
+                            </th>
+                            <th class="sortable-header" data-bind="click: function(){orderByToggle('AccessFailedCount')}">
+                                Access Failed Count
+                                <i class="pull-right fa" data-bind="css:{'fa-caret-up': orderBy() == 'AccessFailedCount', 'fa-caret-down': orderByDescending() == 'AccessFailedCount'}"></i>
+                            </th>
+                    <th style="width: 1%">
+                    </th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <!-- ko foreach: items -->
+                <tr data-bind="css: {'btn-warning': errorMessage()}, attr: {id: applicationUserId}">
+                        @if (@ViewBag.Editable)
+                        {
+                            
+                            <td class="prop-name">@(Knockout.InputFor<MMDash.Data.Models.ApplicationUser>(p => p.Name))</td>
+                            
+                            <td class="prop-userName">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.UserName))</td>
+                            
+                            <td class="prop-normalizedUserName">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.NormalizedUserName))</td>
+                            
+                            <td class="prop-email">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.Email))</td>
+                            
+                            <td class="prop-normalizedEmail">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.NormalizedEmail))</td>
+                            
+                            <td class="prop-emailConfirmed">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.EmailConfirmed))</td>
+                            
+                            <td class="prop-passwordHash">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.PasswordHash))</td>
+                            
+                            <td class="prop-securityStamp">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.SecurityStamp))</td>
+                            
+                            <td class="prop-concurrencyStamp">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.ConcurrencyStamp))</td>
+                            
+                            <td class="prop-phoneNumber">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.PhoneNumber))</td>
+                            
+                            <td class="prop-phoneNumberConfirmed">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.PhoneNumberConfirmed))</td>
+                            
+                            <td class="prop-twoFactorEnabled">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.TwoFactorEnabled))</td>
+                            
+                            <td class="prop-lockoutEnd">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.LockoutEnd))</td>
+                            
+                            <td class="prop-lockoutEnabled">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.LockoutEnabled))</td>
+                            
+                            <td class="prop-accessFailedCount">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.AccessFailedCount))</td>
+                        }
+                        else
+                        {
+                            
+                            <td class="prop-name">@(Knockout.DisplayFor<MMDash.Data.Models.ApplicationUser>(p => p.Name, true))</td>
+                            
+                            <td class="prop-userName">@(Knockout.DisplayFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.UserName, true))</td>
+                            
+                            <td class="prop-normalizedUserName">@(Knockout.DisplayFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.NormalizedUserName, true))</td>
+                            
+                            <td class="prop-email">@(Knockout.DisplayFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.Email, true))</td>
+                            
+                            <td class="prop-normalizedEmail">@(Knockout.DisplayFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.NormalizedEmail, true))</td>
+                            
+                            <td class="prop-emailConfirmed">@(Knockout.DisplayFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.EmailConfirmed, true))</td>
+                            
+                            <td class="prop-passwordHash">@(Knockout.DisplayFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.PasswordHash, true))</td>
+                            
+                            <td class="prop-securityStamp">@(Knockout.DisplayFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.SecurityStamp, true))</td>
+                            
+                            <td class="prop-concurrencyStamp">@(Knockout.DisplayFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.ConcurrencyStamp, true))</td>
+                            
+                            <td class="prop-phoneNumber">@(Knockout.DisplayFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.PhoneNumber, true))</td>
+                            
+                            <td class="prop-phoneNumberConfirmed">@(Knockout.DisplayFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.PhoneNumberConfirmed, true))</td>
+                            
+                            <td class="prop-twoFactorEnabled">@(Knockout.DisplayFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.TwoFactorEnabled, true))</td>
+                            
+                            <td class="prop-lockoutEnd">@(Knockout.DisplayFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.LockoutEnd, true))</td>
+                            
+                            <td class="prop-lockoutEnabled">@(Knockout.DisplayFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.LockoutEnabled, true))</td>
+                            
+                            <td class="prop-accessFailedCount">@(Knockout.DisplayFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.AccessFailedCount, true))</td>
+                        }
+                    <td>
+
+                        <!-- Editor buttons -->
+                        <div class="btn-group pull-right" role="group" style="display: inline-flex">
+                                                            <a data-bind="attr:{ href: editUrl }" class="btn btn-sm btn-default">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                                            <button data-bind="click: deleteItemWithConfirmation" class="btn btn-sm btn-danger">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+
+                        </div>
+                        <div class="form-control-static" data-bind="text: errorMessage"></div>
+                    </td>
+                </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+
+
+
+
+    @section Scripts
+    {
+
+    <script>
+        @if (!ViewBag.Editable)
+        {
+            @:Coalesce.GlobalConfiguration.viewModel.setupValidationAutomatically(false);
+        }
+        var applicationUserList = new ListViewModels.ApplicationUserList();
+        
+        // Set up parent info based on the URL.
+        @if (ViewBag.Query != null)
+        {
+            @:applicationUserList.queryString = "@(ViewBag.Query)";
+        }
+
+        // Save and restore values from the URL:
+        var urlVariables = ['page', 'pageSize', 'search', 'orderBy', 'orderByDescending'];
+        $.each(urlVariables, function(){
+            var param = Coalesce.Utilities.GetUrlParameter(this);
+            if (param) {applicationUserList[this](param);}
+        })
+        applicationUserList.isLoading.subscribe(function(){
+            var newUrl = window.location.href;
+            
+            $.each(urlVariables, function(){
+                var param = applicationUserList[this]();
+                newUrl = Coalesce.Utilities.SetUrlParameter(newUrl, this, param);
+            })
+            history.replaceState(null, document.title, newUrl);
+        });
+
+        applicationUserList.isSavingAutomatically = false;
+        ko.applyBindings(applicationUserList);
+        applicationUserList.isSavingAutomatically = true;
+
+        applicationUserList.includes = "ApplicationUserListGen";
+        applicationUserList.load();
+
+    </script>
+    }

@@ -1,0 +1,83 @@
+@using IntelliTect.Coalesce.Knockout.Helpers
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="btn-group pull-right">
+            <button onclick="window.history.back()" class="btn btn-sm btn-default">Back</button>
+            <button data-bind="click:function() { load(); }" class="btn btn-sm btn-default">Refresh</button>
+        </div>
+        <h1 class="clearfix" style="display:inline-block;">Ip Log</h1>
+        <span class="label label-info" data-bind="fadeVisible: isLoading()">Loading...</span>
+    </div>
+    <div class="panel-body">
+        <div class="form-horizontal">
+            <div class="form-group btn-warning" style="display: none;" data-bind="if: errorMessage(), visible: errorMessage()">
+                <label class="col-md-4 control-label">Error</label>
+                <div class="col-md-8">
+                    <div class="form-control-static" data-bind="text: errorMessage"></div>
+                </div>
+            </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Radio Id Log</label>
+<div class="col-md-7 prop-radioIdLog">@(Knockout.SelectForObject<MMDash.Data.Models.IpLog>(p => p.RadioIdLog))</div>                        <div class="col-md-1" data-bind="with: radioIdLog">
+                            <a data-bind="attr: {href: editUrl}" class="btn btn-default pull-right"><i class="fa fa-ellipsis-h "></i></a>
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Log Date Time</label>
+<div class="col-md-8 prop-logDateTime">@(Knockout.InputFor<MMDash.Data.Models.IpLog>(p => p.LogDateTime))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Ip Address</label>
+<div class="col-md-8 prop-ipAddress">@(Knockout.InputFor<MMDash.Data.Models.IpLog>(p => p.IpAddress))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Lat</label>
+<div class="col-md-8 prop-lat">@(Knockout.InputFor<MMDash.Data.Models.IpLog>(p => p.Lat))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Long</label>
+<div class="col-md-8 prop-long">@(Knockout.InputFor<MMDash.Data.Models.IpLog>(p => p.Long))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Call Sign String</label>
+<div class="col-md-8 prop-callSignString">@(Knockout.InputFor<MMDash.Data.Models.IpLog>(p => p.CallSignString))</div>                </div>
+        </div>
+    </div>
+    <div class="panel-body">
+    </div>
+</div>
+
+
+    @section Scripts
+    {
+    <script>
+        var model = new ViewModels.IpLog();
+        model.includes = "Editor";
+
+        model.saveCallbacks.push(function(obj){
+            // If there is a new id, set the one for this page
+            if (!Coalesce.Utilities.GetUrlParameter('id')){
+                if (model.myId) {
+                    var newUrl = Coalesce.Utilities.SetUrlParameter(window.location.href, "id", model.myId);
+                    window.history.replaceState(null, window.document.title, newUrl);
+                }
+            }
+        });
+
+        @if (ViewBag.Id != null)
+                {
+                    @:model.load('@ViewBag.Id');
+                }
+        @foreach (var kvp in ViewBag.ParentIds)
+                {
+                    @:model.@(((string)(@kvp.Key)))(@kvp.Value);
+                }
+
+        window.onbeforeunload = function(){
+            if (model.isDirty()) model.save();
+        }
+
+        model.coalesceConfig.autoSaveEnabled(false);
+        model.loadChildren(function() {
+            ko.applyBindings(model);
+            model.coalesceConfig.autoSaveEnabled(true);
+        });
+    </script>
+    }

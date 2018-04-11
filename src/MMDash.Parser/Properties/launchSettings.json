@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MMDash.Parser": {
+      "commandName": "Project",
+      "commandLineArgs": "-read-all-lines -debug"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <OutputType>Exe</OutputType>
+    <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <Configurations>Debug;Release;Dev</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Scripts\home.index.ts" />
+    <None Remove="Scripts\map.index.ts" />
+    <None Remove="Scripts\mmdvmServer.index.ts" />
+    <None Remove="Scripts\sign.index.ts" />
+    <None Remove="Scripts\streams.index.ts" />
+    <None Remove="Scripts\tg.index.ts" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Update="Views\**\*;appsettings.json;web.config">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MMDash.Data\MMDash.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommonMark.NET" Version="0.15.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="IntelliTect.Coalesce.Knockout" Version="2.0.0-alpha-199" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0-alpha2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="1.0.0-alpha2-final" />
+    <PackageReference Include="Sendgrid" Version="9.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="IntelliTect.Coalesce.Tools" Version="2.0.0-alpha-199" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\mmdvmServer.index.ts" />
+    <TypeScriptCompile Include="Scripts\map.index.ts" />
+    <TypeScriptCompile Include="Scripts\tg.index.ts" />
+    <TypeScriptCompile Include="Scripts\streams.index.ts" />
+    <TypeScriptCompile Include="Scripts\sign.index.ts" />
+    <TypeScriptCompile Include="Scripts\home.index.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>  
+</Project>

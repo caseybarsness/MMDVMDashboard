@@ -1,0 +1,107 @@
+@using IntelliTect.Coalesce.Knockout.Helpers
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="btn-group pull-right">
+            <button onclick="window.history.back()" class="btn btn-sm btn-default">Back</button>
+            <button data-bind="click:function() { load(); }" class="btn btn-sm btn-default">Refresh</button>
+        </div>
+        <h1 class="clearfix" style="display:inline-block;">Application User</h1>
+        <span class="label label-info" data-bind="fadeVisible: isLoading()">Loading...</span>
+    </div>
+    <div class="panel-body">
+        <div class="form-horizontal">
+            <div class="form-group btn-warning" style="display: none;" data-bind="if: errorMessage(), visible: errorMessage()">
+                <label class="col-md-4 control-label">Error</label>
+                <div class="col-md-8">
+                    <div class="form-control-static" data-bind="text: errorMessage"></div>
+                </div>
+            </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Name</label>
+<div class="col-md-8 prop-name">@(Knockout.InputFor<MMDash.Data.Models.ApplicationUser>(p => p.Name))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">User Name</label>
+<div class="col-md-8 prop-userName">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.UserName))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Normalized User Name</label>
+<div class="col-md-8 prop-normalizedUserName">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.NormalizedUserName))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Email</label>
+<div class="col-md-8 prop-email">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.Email))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Normalized Email</label>
+<div class="col-md-8 prop-normalizedEmail">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.NormalizedEmail))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Email Confirmed</label>
+<div class="col-md-8 prop-emailConfirmed">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.EmailConfirmed))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Password Hash</label>
+<div class="col-md-8 prop-passwordHash">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.PasswordHash))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Security Stamp</label>
+<div class="col-md-8 prop-securityStamp">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.SecurityStamp))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Concurrency Stamp</label>
+<div class="col-md-8 prop-concurrencyStamp">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.ConcurrencyStamp))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Phone Number</label>
+<div class="col-md-8 prop-phoneNumber">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.PhoneNumber))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Phone Number Confirmed</label>
+<div class="col-md-8 prop-phoneNumberConfirmed">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.PhoneNumberConfirmed))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Two Factor Enabled</label>
+<div class="col-md-8 prop-twoFactorEnabled">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.TwoFactorEnabled))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Lockout End</label>
+<div class="col-md-8 prop-lockoutEnd">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.LockoutEnd))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Lockout Enabled</label>
+<div class="col-md-8 prop-lockoutEnabled">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.LockoutEnabled))</div>                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Access Failed Count</label>
+<div class="col-md-8 prop-accessFailedCount">@(Knockout.InputFor<Microsoft.AspNetCore.Identity.IdentityUser<string>>(p => p.AccessFailedCount))</div>                </div>
+        </div>
+    </div>
+    <div class="panel-body">
+    </div>
+</div>
+
+
+    @section Scripts
+    {
+    <script>
+        var model = new ViewModels.ApplicationUser();
+        model.includes = "Editor";
+
+        model.saveCallbacks.push(function(obj){
+            // If there is a new id, set the one for this page
+            if (!Coalesce.Utilities.GetUrlParameter('id')){
+                if (model.myId) {
+                    var newUrl = Coalesce.Utilities.SetUrlParameter(window.location.href, "id", model.myId);
+                    window.history.replaceState(null, window.document.title, newUrl);
+                }
+            }
+        });
+
+        @if (ViewBag.Id != null)
+                {
+                    @:model.load('@ViewBag.Id');
+                }
+        @foreach (var kvp in ViewBag.ParentIds)
+                {
+                    @:model.@(((string)(@kvp.Key)))(@kvp.Value);
+                }
+
+        window.onbeforeunload = function(){
+            if (model.isDirty()) model.save();
+        }
+
+        model.coalesceConfig.autoSaveEnabled(false);
+        model.loadChildren(function() {
+            ko.applyBindings(model);
+            model.coalesceConfig.autoSaveEnabled(true);
+        });
+    </script>
+    }

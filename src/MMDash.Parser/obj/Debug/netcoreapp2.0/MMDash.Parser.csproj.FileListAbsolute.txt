@@ -1,0 +1,16 @@
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\bin\Debug\netcoreapp2.0\appsettings.Mod.json
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\bin\Debug\netcoreapp2.0\appsettings.Dev.json
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\bin\Debug\netcoreapp2.0\appsettings.json
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\bin\Debug\netcoreapp2.0\MMDash.Parser.deps.json
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\bin\Debug\netcoreapp2.0\MMDash.Parser.runtimeconfig.json
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\bin\Debug\netcoreapp2.0\MMDash.Parser.runtimeconfig.dev.json
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\bin\Debug\netcoreapp2.0\MMDash.Parser.dll
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\bin\Debug\netcoreapp2.0\MMDash.Parser.pdb
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\bin\Debug\netcoreapp2.0\MMDash.Data.dll
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\bin\Debug\netcoreapp2.0\MMDash.Data.pdb
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\obj\Debug\netcoreapp2.0\MMDash.Parser.csprojResolveAssemblyReference.cache
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\obj\Debug\netcoreapp2.0\MMDash.Parser.csproj.CoreCompileInputs.cache
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\obj\Debug\netcoreapp2.0\MMDash.Parser.AssemblyInfoInputs.cache
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\obj\Debug\netcoreapp2.0\MMDash.Parser.AssemblyInfo.cs
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\obj\Debug\netcoreapp2.0\MMDash.Parser.dll
+C:\Users\cbarsness\Source\Repos\HamRadio\src\MMDash.Parser\obj\Debug\netcoreapp2.0\MMDash.Parser.pdb

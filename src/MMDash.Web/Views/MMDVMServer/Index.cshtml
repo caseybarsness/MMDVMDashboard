@@ -1,0 +1,105 @@
+﻿@using IntelliTect.Coalesce.TypeDefinition
+@{
+    ViewData["Title"] = "MMDVM Server";
+}
+<div class="content" style="margin: 100px; margin-top: 0px">
+    @*<h2 data-bind="text: server.displayName"></h2>*@
+    <div class="row" data-bind="visible: !isLoadingServer()">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3><span class="online fa-server"></span> <span data-bind="text: server.displayName()"></span></h3>
+                </div>
+                <div class="panel-body">
+                    <span class="online fa-arrow-up"></span> <span data-bind="text: server.onlineLogs()"></span> Online <br />
+                    <span class="offline fa-arrow-down"></span> <span data-bind="text: server.offlineLogs()"></span> Offline <br />
+                    <span class="online fa-table"></span> <span data-bind="text: server.logCount()"></span> Logs <br />
+                    <span class="online fa-wifi"></span> <span data-bind="text: server.transmissionsAndStreams()"></span> Transmissions and Streams
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" data-bind="visible: isLoadingServer">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><img src="~/img/loading.gif" height="40" /> <span class="online fa-server"></span> Loading Server Statistics</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 data-bind="visible: !isLoadingOnline()">Online</h3>
+    <div class="row" data-bind="foreach: onlineUsers.items">
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3><span class="online fa-arrow-up"></span><a data-bind="attr: {href: '/Sign/?call=' + callSign().text()}, text: callSign().text"></a></h3>
+                </div>
+                <div class="panel-body">
+                    Online: <span data-bind="text: entryDateTime().format('MM/DD/YYYY HH:mm:ss')"></span>
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" data-bind="visible: isLoadingOnline">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><img src="~/img/loading.gif" height="40" /> <span class="online fa-arrow-up"></span> Loading Online Clients</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" data-bind="visible: noDataOnline">
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3><span class="online fa-frown-o"></span> No Online data to display.</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" data-bind="visible: isLoadingOnline">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><img src="~/img/loading.gif" height="40" /> <span class="offline fa-arrow-down"></span> Loading Offline Clients</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 data-bind="visible: !isLoadingOffline()">Offline</h3>
+    <div class="row" data-bind="foreach: offlineUsers.items">
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3><span class="offline fa-arrow-down"></span><a data-bind="attr: {href: '/Sign/?call=' + callSign().text()}, text: callSign().text"></a></h3>
+                </div>
+                <div class="panel-body">
+                    Offline: <span data-bind="text: entryDateTime().format('MM/DD/YYYY HH:mm:ss')"></span>
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" data-bind="visible: noDataOffline">
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3><span class="offline fa-frown-o"></span> No Offline data to display.</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/mmdvmServer.index.js" asp-append-version="true"></script>
+}
